@@ -108,7 +108,7 @@ html{background-color: #52b5f7c0;
 
 }
 .datos > *{
-    background-color: bisque;
+    background-color: rgb(10, 98, 180);
     align-self: center;
     justify-content: center;
     text-align: center;
