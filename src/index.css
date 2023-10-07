@@ -1,8 +1,12 @@
+html{background-color: #52b5f7c0;
+
+}
 .pag{
     display: flex;
-    height: 97vh;
+    height: 99%;
     justify-content: center;
-    flex-direction: row;  
+    flex-direction: row;
+ 
 }
 .diaHora{
     display: flex;
@@ -14,6 +18,7 @@
 .dia{
     padding-left: 20px;
 }
+
 .hora{
     font-size: larger;
     align-self:baseline;
@@ -27,28 +32,28 @@
     border-width: 1px;
 }
 
-.transp{  
+.transp{
     width: 40%;
     border: black;
     border-style: solid;
     border-width: 1px;
 }
-div{
-    border: black;
-    border-style: solid;
-    border-width: 1px;
-}
+
 .temperaturas{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    padding: 10px;
+    
 }
 .temp{
+    background-color: #15547ec0;
     font-size: 40px;
     text-align: center;
     width: 150px;
     height: 150px;
     margin-left: 8px;
+    margin-right: 10px;
+    border-radius: 30px;
 }
 .limit{
     display: flex;
@@ -56,75 +61,68 @@ div{
     width: 90%;
     padding: 10px;
     margin: 10px;
-    justify-content: space-between;
+    justify-content:space-between;
+}
+.masInfo{
+    display: flex;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: xx-large;
+    justify-content: center;
+    width: 500px;
+    border-radius: 20px;
 }
 .maxMin{
+    background-color: #15547ec0;
     display: flex;
-    padding: 10px;
+    flex-wrap: wrap;
+    border-radius: 20px;
+    font-size: x-large;
 }
+.max , .min{
+    padding: 20px;
+    
+}
+
 .extend{
+    display: flex;
     text-align: center;
-    width: 600px;
+    width: fit-content;
     height: 150px;
     margin-right: 9px;
-    background-color: chocolate;
+    background-color: rgb(255, 255, 255);
 }
 
 .datos{
     display: grid;
     height: 35vh;
-    margin-top: 20px;
+   
     grid-template: auto;
-    grid-template-columns: repeat(3, 1fr [col-start]);  
+    grid-template-columns: repeat(3, 30px [col-start]);
     justify-content: center;
     align-items: center;
-    row-gap: 50px;
-    column-gap: 20%;
+    padding-right: 70px;
+    row-gap: 10px;
+    column-gap: 25%;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    border: rgb(214, 11, 11);
-    border-style: solid;
    
-}
 
-.uv{
-    align-self: center;
-    text-align: center;
-    width: 60px;
-    height: 60px;
-    padding: 10%;
 }
-.viento{
+.datos > *{
+    background-color: bisque;
     align-self: center;
+    justify-content: center;
     text-align: center;
-    width: 60px;
-    height: 60px;
-    padding: 10px;
-}
-.cambios{ 
-    align-self: center;
-    text-align: center;
-    width: 60px;
-    height: 60px;
-    padding: 10px;
-}
-.humedad{ 
-    align-self: center;
-    text-align: center;
-    width: 60px;
-    height: 60px;
-    padding: 10px;
-}
-.visib{
-    align-self: center;
-    text-align: center;
-    width: 60px;
-    height: 60px;
-    padding: 10px;
+    border-radius: 10px;
+    width: 70px;
+    height: 70px;
+    padding: 15px;
+    padding-bottom: 18px;
 }
 .calidad{
-    align-self: center;
-    text-align: center;
-    width: 60px;
-    height: 60px;
-    padding: 10px;
-    }
+    font-size: small;
+   padding-bottom: 18px;
+}
+
+.cambios{
+    font-size: small;
+}
