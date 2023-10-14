@@ -1,15 +1,19 @@
-import data from "../api.json"
-const dia = parseInt(data.current_weather.time.slice(11,13));
-const humedadArr = data.hourly.relativehumidity_2m;
-const visibArr = data.hourly.visibility; 
-function humedad(){
-    
+function humedad(api){
+    if (api && api.current_weather && api.current_weather.time) {
+const dia = parseInt(api.current_weather.time.slice(11,13));
+const humedadArr = api.hourly.relativehumidity_2m;
+
     return(humedadArr[dia])
+    }
 }
 
-export function visibilidad(Dia){
-    return(visibArr[Dia])
+export function visibilidad(api){
+    if (api && api.current_weather && api.current_weather.time) {
+    const dia = parseInt(api.current_weather.time.slice(11,13));
+    const visibArr = api.hourly.visibility; 
+    return(visibArr[dia])
+    }
 }
 
 
-export default humedad();
+export default humedad;
