@@ -6,8 +6,8 @@ import { humedad } from "./functions/datos"
 import { visibilidad } from "./functions/datos"
 import Grafica from "./components/grafica"
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup, } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'; // Agrega esta línea para cargar los estilos de Leaflet
 import './App.css'
 
@@ -17,9 +17,16 @@ function App() {
    const [error, setError] = useState(null);
    const [aqi, setAqi] = useState(null);
    const position = [51.505, -0.09];
-   // var map = L.map('map').setView([51.505, -0.09], 13);
-   // var marker = L.marker([51.5, -0.09]).addTo(map);
-   
+
+
+    var pest = L.map('pest').setView([51.505, -0.09], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+ }).addTo(pest);
+var marker = L.marker([51.5, -0.09]).addTo(pest);
+
+
    useEffect(() => {
    
          fetch('https://api.open-meteo.com/v1/forecast?latitude=-31.4135&longitude=-64.181&hourly=temperature_2m,relativehumidity_2m,weathercode,visibility,windspeed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&current_weather=true&timezone=America%2FSao_Paulo')
