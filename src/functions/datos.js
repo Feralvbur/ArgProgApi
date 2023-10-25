@@ -58,7 +58,7 @@ export function max(api){
         const num = api.daily.temperature_2m.slice(0,23);
         const max = Math.max(num);
        
-        return(console.log("datos"+ max))}
+        return("datos"+ max)}
 }
 export function air(aqi,api){
     if (aqi && aqi.hourly && aqi.hourly.european_aqi) {

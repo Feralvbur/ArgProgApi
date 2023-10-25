@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css'; // Agrega esta línea para cargar los estilos de Leaflet
-
+import './App.css'
 
 function App() {
    const [api, setApi] = useState(null);
@@ -19,8 +19,9 @@ function App() {
    const position = [51.505, -0.09];
    // var map = L.map('map').setView([51.505, -0.09], 13);
    // var marker = L.marker([51.5, -0.09]).addTo(map);
+   
    useEffect(() => {
-      const interval = setInterval(() => {
+   
          fetch('https://api.open-meteo.com/v1/forecast?latitude=-31.4135&longitude=-64.181&hourly=temperature_2m,relativehumidity_2m,weathercode,visibility,windspeed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&current_weather=true&timezone=America%2FSao_Paulo')
             .then(resp => resp.json()
             ).then((data) => {
@@ -31,12 +32,12 @@ function App() {
                setError(err.message);
                setApi(null);
             })
-      }, 10000);
-   })
+  
+   },[])
 
 
    useEffect(() => {
-      const interval = setInterval(() => {
+     
          fetch('https://air-quality-api.open-meteo.com/v1/air-quality?latitude=52.52&longitude=13.41&hourly=pm10,pm2_5,european_aqi')
             .then(resp => resp.json()
             ).then((data) => {
@@ -47,8 +48,7 @@ function App() {
                setError(err.message);
                setAqi(null);
             })
-      }, 10000);
-   })
+   },[])
 
    return (
       <>
@@ -87,7 +87,7 @@ function App() {
                </div>
                <div className="transp">
                   <div id="map">
-                     <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+                     <MapContainer center={[-34.60677315854788, -58.43547391938906]} zoom={12} scrollWheelZoom={false}>
                         <TileLayer
                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
