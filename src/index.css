@@ -1,5 +1,6 @@
 html{background-color: #52b5f7c0;
-
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .pag{
     display: flex;
