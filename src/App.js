@@ -19,19 +19,17 @@ function App() {
    const [error, setError] = useState(null);
    const [aqi, setAqi] = useState(null);
    const [transporte, setTransporte] = useState(null);
-   const [estSeleccion, setEstSeleccion] = useState([]);
    const [lineas, setLineas] = useState(null);
    const customIcon = L.icon({
-      iconUrl: 'https://cdn.icon-icons.com/icons2/3181/PNG/96/bus_transportation_travel_transport_icon_194010.png', // Reemplaza con la URL de tu imagen de icono
+      iconUrl: 'https://cdn.icon-icons.com/icons2/3181/PNG/96/bus_transportation_travel_transport_icon_194010.png', 
       iconSize: [25, 25],
 
    });
    const seleccion = (linea) => {
-      setEstSeleccion(linea)
       setLineas(transporte.filter(item => item.route_short_name === linea));
-
+      
    }
-
+   
    useEffect(() => {
       fetchClimaData()
          .then((data) => {
@@ -60,24 +58,29 @@ function App() {
       const interval = setInterval(() => {
          fetchTransporte()
             .then((data) => {
+               
                setTransporte(data);
                setMapLoading(false);
+               if(lineas){
+                  setLineas(data.filter(item => item.route_short_name === lineas))
+                console.log("a")
+               }
             })
             .catch((err) => {
                setError(err.message);
                setTransporte(null);
             });
-      }, 31000);
+      }, 6000);
       return () => clearInterval(interval);
    }, [])
 
 
-
+   
 
 
    return (
+      
       <>
-
          {loading && <div className="Load">
             <img className="loadImg" src="https://media3.giphy.com/media/XunOdEWPoTCxraOxzN/200.webp?cid=ecf05e47wzsxsoiylp8sw6g6s2pl1oyvwuvpcqye3o3nqf7g&ep=v1_gifs_search&rid=200.webp&ct=g" /><br />Cargando..</div>}
          {!loading && api && (
@@ -133,7 +136,7 @@ function App() {
                               />
 
                               {lineas == null && transporte && transporte.map((item) => (
-                                 <Marker key={item.id} position={[item.latitude, item.longitude]} icon={customIcon} html='<span class="my-div-span">RAF Banff Airfield</span>'>
+                                 <Marker key={item.id} position={[item.latitude, item.longitude]} icon={customIcon} >
                                     <Popup>
                                        Colectivo: {item.route_short_name} <br />
                                        Agencia: {item.agency_name}
@@ -142,8 +145,9 @@ function App() {
                                     </Popup>
                                  </Marker>
                               ))}
-                              {lineas && lineas.map((item) => (
-                                 <Marker key={item.id} position={[item.latitude, item.longitude]} icon={customIcon} html='<span class="my-div-span">RAF Banff Airfield</span>'>
+                              {lineas && lineas.map((item,index) => (
+                                 
+                                 <Marker key={index} position={[item.latitude, item.longitude]} icon={customIcon} >
                                     <Popup>
                                        Colectivo: {item.route_short_name} <br />
                                        Agencia: {item.agency_name}
