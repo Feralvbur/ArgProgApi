@@ -4,12 +4,9 @@ La idea de este proyecto es crear una página donde se muestre información sobr
 
 ## Futuras mejoras 🔧
 ```
-ajustar el tamaño del gráfico chart.
 agregar imagen demostrando el clima actual
 (si es que está soleado,nublado,nevando,etc).
 mejorar la modularización.
-lograr que la página entre completa en la pantalla 
-sin necesidad de scrollear.
 ```
 
 ## Librerias y páginas utilizadas ⚙️
@@ -21,6 +18,8 @@ https://bas.dev/work/meteocons
 
 se ha utilizado postman:
 https://www.postman.com/downloads/
+también se utilizó leaflet:
+https://leafletjs.com/
 Los datos se extraen desde:
 https://open-meteo.com/en/docs#latitude=-31.4135&longitude=-64.181&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=America%2FSao_Paulo
 

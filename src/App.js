@@ -63,14 +63,15 @@ function App() {
                setMapLoading(false);
                if(lineas !== null){
                   setLineas(data.filter(item => item.route_short_name === lineas))
-              
+                
                }
+               
             })
             .catch((err) => {
                setError(err.message);
                setTransporte(null);
             });
-      }, 6000);
+      }, 31000);
       return () => clearInterval(interval);
    }, [])
 
@@ -81,6 +82,7 @@ function App() {
    return (
       
       <>
+    
          {loading && <div className="Load">
             <img className="loadImg" src="https://media3.giphy.com/media/XunOdEWPoTCxraOxzN/200.webp?cid=ecf05e47wzsxsoiylp8sw6g6s2pl1oyvwuvpcqye3o3nqf7g&ep=v1_gifs_search&rid=200.webp&ct=g" /><br />Cargando..</div>}
          {!loading && api && (
