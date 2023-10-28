@@ -127,3 +127,14 @@ html{background-color: #52b5f7c0;
 .loadImg{
     border-radius: 100px;
 }
+.menuDiv{
+    justify-content: center;
+    text-align: center;
+}
+.menu{
+    width: 30vw;
+    height: 5vh;
+    font-size: larger;
+    font-style:inherit;
+    text-align: center;
+}

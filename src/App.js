@@ -19,14 +19,17 @@ function App() {
    const [error, setError] = useState(null);
    const [aqi, setAqi] = useState(null);
    const [transporte, setTransporte] = useState(null);
-   const [estSeleccion, setEstSeleccion] = useState(null);
+   const [estSeleccion, setEstSeleccion] = useState([]);
+   const [lineas, setLineas] = useState(null);
    const customIcon = L.icon({
       iconUrl: 'https://cdn.icon-icons.com/icons2/3181/PNG/96/bus_transportation_travel_transport_icon_194010.png', // Reemplaza con la URL de tu imagen de icono
       iconSize: [25, 25],
 
    });
-   const seleccion = (linea)=>{
+   const seleccion = (linea) => {
       setEstSeleccion(linea)
+      setLineas(transporte.filter(item => item.route_short_name === linea));
+
    }
 
    useEffect(() => {
@@ -75,9 +78,8 @@ function App() {
    return (
       <>
 
-
          {loading && <div className="Load">
-         <img className="loadImg" src="https://media3.giphy.com/media/XunOdEWPoTCxraOxzN/200.webp?cid=ecf05e47wzsxsoiylp8sw6g6s2pl1oyvwuvpcqye3o3nqf7g&ep=v1_gifs_search&rid=200.webp&ct=g"/><br/>Cargando..</div>}
+            <img className="loadImg" src="https://media3.giphy.com/media/XunOdEWPoTCxraOxzN/200.webp?cid=ecf05e47wzsxsoiylp8sw6g6s2pl1oyvwuvpcqye3o3nqf7g&ep=v1_gifs_search&rid=200.webp&ct=g" /><br />Cargando..</div>}
          {!loading && api && (
             <div className="pag">
                <div className="clima">
@@ -112,41 +114,52 @@ function App() {
 
                <div className="transp">
 
-               {mapLoading && <div className="Load">
-         <img className="loadImg" src="https://media4.giphy.com/media/3y0oCOkdKKRi0/200.webp?cid=ecf05e47vphw2gqmji7hbz4z7hkooxpxzrsrthu8ig7xlxrr&ep=v1_gifs_search&rid=200.webp&ct=g"/><br/>Cargando..</div>}
-                {transporte ?(
-                  <>
-                  <select onChange={(e)=>{seleccion(e.target.value)}}>{transporte && transporte.map((item, index) =>
-                     <option key={index}>{item.route_short_name}</option>
-                  )}
-                     
-                  </select>
-                  
-                  <div id="map">
-                     <MapContainer center={[-34.60677315854788, -58.43547391938906]} zoom={10} scrollWheelZoom={false}>
-                        <TileLayer
-                           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        
-                        {transporte && transporte.map((item) => (
-                           <Marker key={item.id} position={[item.latitude, item.longitude]} icon={customIcon} html='<span class="my-div-span">RAF Banff Airfield</span>'>
-                              <Popup>
-                                 Colectivo: {item.route_short_name} <br />
-                                 Agencia: {item.agency_name}
-                                 hacia: {item.trip_headsign}<br />
-                                 velocidad: {item.speed}
-                              </Popup>
-                           </Marker>
-                        ))}
-                     </MapContainer>
+                  {mapLoading && <div className="Load">
+                     <img className="loadImg" src="https://media4.giphy.com/media/3y0oCOkdKKRi0/200.webp?cid=ecf05e47vphw2gqmji7hbz4z7hkooxpxzrsrthu8ig7xlxrr&ep=v1_gifs_search&rid=200.webp&ct=g" /><br />Cargando..</div>}
+                  {transporte ? (
+                     <>
+                        <div className="menuDiv">
+                           <select className="menu" onChange={(e) => { seleccion(e.target.value) }}>{transporte && transporte.map((item, index) =>
+                              <option key={index}>{item.route_short_name}</option>
+                           )}
 
-                  </div>
-                  </>
+                           </select>
+                        </div>
+                        <div id="map">
+                           <MapContainer center={[-34.60677315854788, -58.43547391938906]} zoom={10} scrollWheelZoom={false}>
+                              <TileLayer
+                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                              />
+
+                              {lineas == null && transporte && transporte.map((item) => (
+                                 <Marker key={item.id} position={[item.latitude, item.longitude]} icon={customIcon} html='<span class="my-div-span">RAF Banff Airfield</span>'>
+                                    <Popup>
+                                       Colectivo: {item.route_short_name} <br />
+                                       Agencia: {item.agency_name}
+                                       hacia: {item.trip_headsign}<br />
+                                       velocidad: {item.speed}
+                                    </Popup>
+                                 </Marker>
+                              ))}
+                              {lineas && lineas.map((item) => (
+                                 <Marker key={item.id} position={[item.latitude, item.longitude]} icon={customIcon} html='<span class="my-div-span">RAF Banff Airfield</span>'>
+                                    <Popup>
+                                       Colectivo: {item.route_short_name} <br />
+                                       Agencia: {item.agency_name}
+                                       hacia: {item.trip_headsign}<br />
+                                       velocidad: {item.speed}
+                                    </Popup>
+                                 </Marker>
+                              ))}
+                           </MapContainer>
+
+                        </div>
+                     </>
                   ) : null}
                </div>
             </div>
-            
+
          )}
       </>)
 
