@@ -19,12 +19,15 @@ function App() {
    const [error, setError] = useState(null);
    const [aqi, setAqi] = useState(null);
    const [transporte, setTransporte] = useState(null);
+   const [estSeleccion, setEstSeleccion] = useState(null);
    const customIcon = L.icon({
       iconUrl: 'https://cdn.icon-icons.com/icons2/3181/PNG/96/bus_transportation_travel_transport_icon_194010.png', // Reemplaza con la URL de tu imagen de icono
       iconSize: [25, 25],
 
    });
-
+   const seleccion = (linea)=>{
+      setEstSeleccion(linea)
+   }
 
    useEffect(() => {
       fetchClimaData()
@@ -65,12 +68,16 @@ function App() {
       return () => clearInterval(interval);
    }, [])
 
+
+
+
+
    return (
       <>
 
 
          {loading && <div className="Load">
-         <img className="loadImg" src="https://media4.giphy.com/media/3y0oCOkdKKRi0/200.webp?cid=ecf05e47vphw2gqmji7hbz4z7hkooxpxzrsrthu8ig7xlxrr&ep=v1_gifs_search&rid=200.webp&ct=g"/><br/>Cargando..</div>}
+         <img className="loadImg" src="https://media3.giphy.com/media/XunOdEWPoTCxraOxzN/200.webp?cid=ecf05e47wzsxsoiylp8sw6g6s2pl1oyvwuvpcqye3o3nqf7g&ep=v1_gifs_search&rid=200.webp&ct=g"/><br/>Cargando..</div>}
          {!loading && api && (
             <div className="pag">
                <div className="clima">
@@ -108,6 +115,13 @@ function App() {
                {mapLoading && <div className="Load">
          <img className="loadImg" src="https://media4.giphy.com/media/3y0oCOkdKKRi0/200.webp?cid=ecf05e47vphw2gqmji7hbz4z7hkooxpxzrsrthu8ig7xlxrr&ep=v1_gifs_search&rid=200.webp&ct=g"/><br/>Cargando..</div>}
                 {transporte ?(
+                  <>
+                  <select onChange={(e)=>{seleccion(e.target.value)}}>{transporte && transporte.map((item, index) =>
+                     <option key={index}>{item.route_short_name}</option>
+                  )}
+                     
+                  </select>
+                  
                   <div id="map">
                      <MapContainer center={[-34.60677315854788, -58.43547391938906]} zoom={10} scrollWheelZoom={false}>
                         <TileLayer
@@ -128,9 +142,11 @@ function App() {
                      </MapContainer>
 
                   </div>
+                  </>
                   ) : null}
                </div>
             </div>
+            
          )}
       </>)
 
