@@ -10,7 +10,7 @@ import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup, } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import './App.css'
-import { fetchClimaData, fetchAirQualityData, fetchTransporte } from './api';
+import { fetchClimaData, fetchAirQualityData, fetchTransporte } from './functions/api';
 
 function App() {
    const [api, setApi] = useState(null);

@@ -28,7 +28,7 @@ export async function fetchClimaData() {
     try {
         const response = await fetch('https://datosabiertos-transporte-apis.buenosaires.gob.ar/colectivos/vehiclePositionsSimple?client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6');
         if (!response.ok) {
-          throw new Error('Error en la solicitud de datos de calidad de transporte');
+          throw new Error('Error en la solicitud de datos de transporte');
         }
         const data = await response.json();
         return data.slice(0, 50);
