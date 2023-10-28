@@ -15,6 +15,7 @@ import { fetchClimaData, fetchAirQualityData, fetchTransporte } from './function
 function App() {
    const [api, setApi] = useState(null);
    const [loading, setLoading] = useState(true);
+   const [mapLoading, setMapLoading] = useState(true);
    const [error, setError] = useState(null);
    const [aqi, setAqi] = useState(null);
    const [transporte, setTransporte] = useState(null);
@@ -54,7 +55,7 @@ function App() {
          fetchTransporte()
             .then((data) => {
                setTransporte(data);
-               setLoading(false);
+               setMapLoading(false);
             })
             .catch((err) => {
                setError(err.message);
@@ -68,7 +69,8 @@ function App() {
       <>
 
 
-         {loading && <div>Cargando..</div>}
+         {loading && <div className="Load">
+         <img className="loadImg" src="https://media4.giphy.com/media/3y0oCOkdKKRi0/200.webp?cid=ecf05e47vphw2gqmji7hbz4z7hkooxpxzrsrthu8ig7xlxrr&ep=v1_gifs_search&rid=200.webp&ct=g"/><br/>Cargando..</div>}
          {!loading && api && (
             <div className="pag">
                <div className="clima">
@@ -100,17 +102,20 @@ function App() {
                      </div>
                   </div>
                </div>
-               <div className="transp">
-                
 
+               <div className="transp">
+
+               {mapLoading && <div className="Load">
+         <img className="loadImg" src="https://media4.giphy.com/media/3y0oCOkdKKRi0/200.webp?cid=ecf05e47vphw2gqmji7hbz4z7hkooxpxzrsrthu8ig7xlxrr&ep=v1_gifs_search&rid=200.webp&ct=g"/><br/>Cargando..</div>}
+                {transporte ?(
                   <div id="map">
                      <MapContainer center={[-34.60677315854788, -58.43547391938906]} zoom={10} scrollWheelZoom={false}>
                         <TileLayer
                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
+                        
                         {transporte && transporte.map((item) => (
-
                            <Marker key={item.id} position={[item.latitude, item.longitude]} icon={customIcon} html='<span class="my-div-span">RAF Banff Airfield</span>'>
                               <Popup>
                                  Colectivo: {item.route_short_name} <br />
@@ -123,6 +128,7 @@ function App() {
                      </MapContainer>
 
                   </div>
+                  ) : null}
                </div>
             </div>
          )}
@@ -134,3 +140,7 @@ function App() {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.js" />
 export default App;
+
+
+//se que está demasiado cargado app, pero le di prioridad a terminar transporte antes que separar los componentes
+//porque me estaba dando problemas
