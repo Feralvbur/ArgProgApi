@@ -61,9 +61,9 @@ function App() {
                
                setTransporte(data);
                setMapLoading(false);
-               if(lineas){
+               if(lineas !== null){
                   setLineas(data.filter(item => item.route_short_name === lineas))
-                console.log("a")
+              
                }
             })
             .catch((err) => {
