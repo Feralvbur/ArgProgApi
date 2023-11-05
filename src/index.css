@@ -27,8 +27,8 @@ html{background-color: #52b5f7c0;
     margin-left: 50px;
 }
 .clima{
-    width: 60%;
-   
+    width: 60vw;
+   height: 50vh;
 }
 
 .transp{
@@ -108,7 +108,10 @@ html{background-color: #52b5f7c0;
     padding-bottom: 18px;
 }
 .calidad{
+    
     font-size: small;
+ 
+    text-align: center;
    padding-bottom: 18px;
 }
 

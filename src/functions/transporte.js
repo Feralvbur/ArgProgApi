@@ -1,53 +1,47 @@
-import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup, } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
-
-function Transport({  }) {
-  const [transporte, setTransporte] = useState(null);
-  const customIcon = L.icon({
-    iconUrl: 'https://cdn.icon-icons.com/icons2/3181/PNG/96/bus_transportation_travel_transport_icon_194010.png', // Reemplaza con la URL de tu imagen de icono
-    iconSize: [25, 25],
-
-  });
+function Transporte({ transporte, lineas, customIcon, seleccion }) {
   return (
-    <div className="transp">
-      <div className="linea">
-        <form>
-          <label>
-            Seleccione la linea de Colectivo:
-            <select value="nombre">
-              <option value="253A">253A</option>
-              <option value="153A">153A</option>
-              <option value="321A">321A</option>
-              <option value="148B">148B</option>
-            </select>
-          </label>
-          <input type="submit" value="Enviar" />
-        </form></div>
-
+    <>
+      <div className="menuDiv">
+        <select className="menu" onChange={(e) => { seleccion(e.target.value) }}>
+          {transporte && transporte.map((item, index) => (
+            <option key={index} value={item.route_short_name}>{item.route_short_name}</option>
+          ))}
+        </select>
+      </div>
       <div id="map">
         <MapContainer center={[-34.60677315854788, -58.43547391938906]} zoom={10} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {transporte && transporte.map((item) => (
 
-            <Marker key={item.id} position={[item.latitude, item.longitude]} icon={customIcon} html='<span class="my-div-span">RAF Banff Airfield</span>'>
+          {lineas == null && transporte && transporte.map((item) => (
+            <Marker key={item.id} position={[item.latitude, item.longitude]} icon={customIcon} >
               <Popup>
                 Colectivo: {item.route_short_name} <br />
                 Agencia: {item.agency_name}
                 hacia: {item.trip_headsign}<br />
-                velocidad: {item.speed}
+                velocidad: {item.speed} km/h
+              </Popup>
+            </Marker>
+          ))}
+          {lineas && lineas.map((item, index) => (
+            <Marker key={index} position={[item.latitude, item.longitude]} icon={customIcon} >
+              <Popup>
+                Colectivo: {item.route_short_name} <br />
+                Agencia: {item.agency_name}
+                hacia: {item.trip_headsign}<br />
+                velocidad: {item.speed} km/h
               </Popup>
             </Marker>
           ))}
         </MapContainer>
       </div>
-    </div>
+    </>
   );
 }
 
-export default Transport();
+export default Transporte;

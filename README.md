@@ -2,12 +2,11 @@
 
 La idea de este proyecto es crear una página donde se muestre información sobre el clima y transporte de Buenos Aires, creada con React y conectada a un API.
 
-## Futuras mejoras 🔧
-```
-agregar imagen demostrando el clima actual
-(si es que está soleado,nublado,nevando,etc).
-mejorar la modularización.
-```
+## cambios Realizados 🔧
+
+- se ha reacomodado el codigo, separando los procesos de clima y transporte en componentes diferentes.
+* La grafica ya no utiliza datos de un json, en su lugar realiza un fetch.
+
 
 ## Librerias y páginas utilizadas ⚙️
 
