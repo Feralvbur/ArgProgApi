@@ -9,6 +9,11 @@ html{background-color: #52b5f7c0;
     flex-direction: row;
  
 }
+.ciudad{
+    background-color: #52b5f7c0;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    font-size: larger;
+}
 .diaHora{
     display: flex;
     flex-wrap: wrap;

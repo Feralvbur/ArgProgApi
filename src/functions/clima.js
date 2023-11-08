@@ -1,13 +1,13 @@
 import React from 'react';
 import { dia, hora, amanAnoch, humedad, visibilidad, air } from './datos';
 import Grafica from '../components/grafica';
-
+import Select from './select'
 function Clima({ api, aqi }) {
   return (
     <div className="clima">
       <div className="diaHora">
         <h2 className="dia">{dia(api)}</h2>
-        <h1>Buenos Aires</h1>
+       <Select  Api={api}/>
         <p className="hora">{hora(api)}</p>
       </div>
 
@@ -69,6 +69,7 @@ function Clima({ api, aqi }) {
             {api.current_weather.windspeed} km/h
           </div>
           <div className="cambios">
+          aman/anoch<br/>
             <img
               src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/haze-day.svg"
               height="35"
