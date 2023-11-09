@@ -1,14 +1,14 @@
 import React from 'react';
 import { dia, hora, amanAnoch, humedad, visibilidad, air } from './datos';
 import Grafica from '../components/grafica';
-import Select from './select'
 
-function Clima({ api, aqi }) {
+
+function Clima({ api, aqi, set }) {
   return (
     <div className="clima">
       <div className="diaHora">
         <h2 className="dia">{dia(api)}</h2>
-       
+
         <p className="hora">{hora(api)}</p>
       </div>
 
@@ -24,7 +24,7 @@ function Clima({ api, aqi }) {
           {api.current_weather.temperature}°C
         </div>
         <div className="extend" style={{ width: '70vw', height: '40vh' }}>
-          <Grafica />
+          <Grafica val={set} />
         </div>
       </div>
 
@@ -70,7 +70,7 @@ function Clima({ api, aqi }) {
             {api.current_weather.windspeed} km/h
           </div>
           <div className="cambios">
-          aman/anoch<br/>
+            aman/anoch<br />
             <img
               src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/haze-day.svg"
               height="35"
@@ -108,7 +108,7 @@ function Clima({ api, aqi }) {
               src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/smoke-particles.svg"
               height="40"
               alt=""
-            /><br/>
+            /><br />
             {air(aqi, api)} km
           </div>
         </div>

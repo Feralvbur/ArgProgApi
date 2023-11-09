@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-
+import localidades from '../components/localidades.json';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,7 +24,8 @@ ChartJS.register(
   Filler
 );
 
-export default function LinesChart() {
+export default function LinesChart(val) {
+  const ciudad = val.val;
   const [temperatura, setTemperatura] = useState([]);
   const [horas, setHoras] = useState([
     '00:00',
@@ -39,8 +40,9 @@ export default function LinesChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+
         const response = await fetch(
-          'https://api.open-meteo.com/v1/forecast?latitude=-31.41266158385854&longitude=-64.18803488869683&hourly=temperature_2m,relativehumidity_2m,weathercode,visibility,windspeed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&current_weather=true&timezone=America%2FSao_Paulo'
+          `https://api.open-meteo.com/v1/forecast?latitude=${localidades[ciudad].latitude}&longitude=${localidades[ciudad].longitude}&hourly=temperature_2m,relativehumidity_2m,weathercode,visibility,windspeed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&current_weather=true&timezone=America%2FSao_Paulo`
         );
         if (!response.ok) {
           throw new Error('Error en la solicitud de datos del clima');
@@ -63,7 +65,7 @@ export default function LinesChart() {
     };
 
     fetchData();
-  }, []);
+  }, [val]);
 
   // Comprobar si los datos se han cargado antes de renderizar el gráfico
   if (temperatura.length === 0) {

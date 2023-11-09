@@ -19,17 +19,17 @@ function App() {
    const selecclima = (e) => {
       const valor = e.target.value;
       setValorSeleccionado(valor);
-  };
+   };
    const customIcon = L.icon({
-      iconUrl: 'https://cdn.icon-icons.com/icons2/3181/PNG/96/bus_transportation_travel_transport_icon_194010.png', 
+      iconUrl: 'https://cdn.icon-icons.com/icons2/3181/PNG/96/bus_transportation_travel_transport_icon_194010.png',
       iconSize: [25, 25],
 
    });
    const seleccion = (linea) => {
       setLineas(transporte.filter(item => item.route_short_name === linea));
-      
+
    }
-  
+
 
    useEffect(() => {
       fetchClimaData(valorSeleccionado)
@@ -41,10 +41,10 @@ function App() {
             setError(err.message);
             setApi(null);
          });
-   }, []);
+   }, [valorSeleccionado]);
 
    useEffect(() => {
-      fetchAirQualityData()
+      fetchAirQualityData(valorSeleccionado)
          .then((data) => {
             setAqi(data);
             setLoading(false);
@@ -53,7 +53,7 @@ function App() {
             setError(err.message);
             setAqi(null);
          });
-   }, []);
+   }, [valorSeleccionado]);
 
    useEffect(() => {
       const interval = setInterval(() => {
@@ -61,11 +61,11 @@ function App() {
             .then((data) => {
                setTransporte(data);
                setMapLoading(false);
-               if(lineas !== null){
+               if (lineas !== null) {
                   setLineas(data.filter(item => item.route_short_name === lineas))
-                
+
                }
-               
+
             })
             .catch((err) => {
                setError(err.message);
@@ -76,30 +76,32 @@ function App() {
    }, [])
 
 
-   
+
 
 
    return (
-      
+
       <>
          {loading && <div className="Load">
-            <img className="loadImg" src="https://media3.giphy.com/media/XunOdEWPoTCxraOxzN/200.webp?cid=ecf05e47wzsxsoiylp8sw6g6s2pl1oyvwuvpcqye3o3nqf7g&ep=v1_gifs_search&rid=200.webp&ct=g" alt=" "/><br />Cargando..</div>}
+            <img className="loadImg" src="https://media3.giphy.com/media/XunOdEWPoTCxraOxzN/200.webp?cid=ecf05e47wzsxsoiylp8sw6g6s2pl1oyvwuvpcqye3o3nqf7g&ep=v1_gifs_search&rid=200.webp&ct=g" alt=" " /><br />Cargando..</div>}
          {!loading && api && (
             <div className="pag">
+            <div className="climaDiv">
             <select className="ciudad" onChange={selecclima}>
-                    {Object.keys(location).map((ciudad) => (
-                        <option key={ciudad} value={ciudad}>
-                            {ciudad}
-                        </option>
-                    ))}
-                </select>
-            <Clima api={api} aqi={aqi} />
+                  {Object.keys(location).map((ciudad) => (
+                     <option key={ciudad} value={ciudad}>
+                        {ciudad}
+                     </option>
+                  ))}
+               </select>
+               <Clima api={api} aqi={aqi} set={valorSeleccionado} />
+               </div>
                <div className="transp">
 
                   {mapLoading && <div className="Load">
-                     <img className="loadImg" src="https://media4.giphy.com/media/3y0oCOkdKKRi0/200.webp?cid=ecf05e47vphw2gqmji7hbz4z7hkooxpxzrsrthu8ig7xlxrr&ep=v1_gifs_search&rid=200.webp&ct=g" alt=""/><br />Cargando..</div>}
+                     <img className="loadImg" src="https://media4.giphy.com/media/3y0oCOkdKKRi0/200.webp?cid=ecf05e47vphw2gqmji7hbz4z7hkooxpxzrsrthu8ig7xlxrr&ep=v1_gifs_search&rid=200.webp&ct=g" alt="" /><br />Cargando..</div>}
                   {transporte ? (
-                    <Transporte transporte={transporte} lineas={lineas} customIcon={customIcon} seleccion={seleccion} />
+                     <Transporte transporte={transporte} lineas={lineas} customIcon={customIcon} seleccion={seleccion} />
                   ) : null}
                </div>
             </div>
