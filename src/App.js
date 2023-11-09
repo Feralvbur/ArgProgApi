@@ -14,7 +14,7 @@ function App() {
    const [mapLoading, setMapLoading] = useState(true);
    const [error, setError] = useState(null);
    const [lineas, setLineas] = useState(null);
-   const [valorSeleccionado, setValorSeleccionado] = useState("Buenos Aires");
+   const [valorSeleccionado, setValorSeleccionado] = useState("Cordoba");
 
    const selecclima = (e) => {
       const valor = e.target.value;
