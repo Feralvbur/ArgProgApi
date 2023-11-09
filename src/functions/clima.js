@@ -2,12 +2,13 @@ import React from 'react';
 import { dia, hora, amanAnoch, humedad, visibilidad, air } from './datos';
 import Grafica from '../components/grafica';
 import Select from './select'
+
 function Clima({ api, aqi }) {
   return (
     <div className="clima">
       <div className="diaHora">
         <h2 className="dia">{dia(api)}</h2>
-       <Select  Api={api}/>
+       
         <p className="hora">{hora(api)}</p>
       </div>
 

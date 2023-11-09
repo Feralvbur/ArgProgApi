@@ -5,7 +5,7 @@ import Transporte from './functions/transporte';
 import 'leaflet/dist/leaflet.css';
 import './App.css'
 import { fetchClimaData, fetchAirQualityData, fetchTransporte } from './functions/api';
-
+import location from './components/localidades.json'
 function App() {
    const [api, setApi] = useState(null);
    const [aqi, setAqi] = useState(null);
@@ -14,6 +14,12 @@ function App() {
    const [mapLoading, setMapLoading] = useState(true);
    const [error, setError] = useState(null);
    const [lineas, setLineas] = useState(null);
+   const [valorSeleccionado, setValorSeleccionado] = useState("Buenos Aires");
+
+   const selecclima = (e) => {
+      const valor = e.target.value;
+      setValorSeleccionado(valor);
+  };
    const customIcon = L.icon({
       iconUrl: 'https://cdn.icon-icons.com/icons2/3181/PNG/96/bus_transportation_travel_transport_icon_194010.png', 
       iconSize: [25, 25],
@@ -26,7 +32,7 @@ function App() {
   
 
    useEffect(() => {
-      fetchClimaData()
+      fetchClimaData(valorSeleccionado)
          .then((data) => {
             setApi(data);
             setLoading(false);
@@ -76,11 +82,17 @@ function App() {
    return (
       
       <>
-    
          {loading && <div className="Load">
             <img className="loadImg" src="https://media3.giphy.com/media/XunOdEWPoTCxraOxzN/200.webp?cid=ecf05e47wzsxsoiylp8sw6g6s2pl1oyvwuvpcqye3o3nqf7g&ep=v1_gifs_search&rid=200.webp&ct=g" alt=" "/><br />Cargando..</div>}
          {!loading && api && (
             <div className="pag">
+            <select className="ciudad" onChange={selecclima}>
+                    {Object.keys(location).map((ciudad) => (
+                        <option key={ciudad} value={ciudad}>
+                            {ciudad}
+                        </option>
+                    ))}
+                </select>
             <Clima api={api} aqi={aqi} />
                <div className="transp">
 

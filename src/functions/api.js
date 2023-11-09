@@ -1,10 +1,12 @@
 import MenuComponent from '../functions/select';
 import localidades from '../components/localidades.json';
-export async function fetchClimaData() {
+export async function fetchClimaData(valorSeleccionado) {
   
   try {
-    console.log(MenuComponent)
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=-31.41266158385854&longitude=-64.18803488869683&hourly=temperature_2m,relativehumidity_2m,weathercode,visibility,windspeed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&current_weather=true&timezone=America%2FSao_Paulo`;
+    {console.log(localidades[valorSeleccionado].longitude)};
+    {console.log(localidades[valorSeleccionado].latitude)};
+
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${localidades[valorSeleccionado].latitude}$&longitude=${localidades[valorSeleccionado].longitude}$&hourly=temperature_2m,relativehumidity_2m,weathercode,visibility,windspeed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&current_weather=true&timezone=America%2FSao_Paulo`;
 
     const response = await fetch(url);
     if (!response.ok) {
