@@ -70,6 +70,7 @@ html {
 }
 
 .limit {
+    align-items: center;
     display: flex;
     width: fit-content;
     width: 50vw;

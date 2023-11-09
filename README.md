@@ -6,7 +6,7 @@ La idea de este proyecto es crear una página donde se muestre información sobr
 
 - se ha reacomodado el codigo, separando los procesos de clima y transporte en componentes diferentes.
 * La grafica ya no utiliza datos de un json, en su lugar realiza un fetch.
-
++ agregado un select desde el que se puede elegir la región que se desea saber el clima
 
 ## Librerias y páginas utilizadas ⚙️
 
